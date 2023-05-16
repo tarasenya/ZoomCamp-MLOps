@@ -1,2 +1,2 @@
 # ZoomCamp-MLOps
-Hometasks and projects for ZoomCamp MLOps course hold by DataTalks
+Hometasks and project for ZoomCamp MLOps course hold by DataTalks
