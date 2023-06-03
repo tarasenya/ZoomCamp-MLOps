@@ -1,2 +1,11 @@
 data
 .ipynb_checkpoints
+artifacts
+output
+prefect_playground
+.idea
+mlruns
+mlflow.db
+*.pkl
+Week-2/workshop_wnb/wandb
+Week-3/prefect_playground
