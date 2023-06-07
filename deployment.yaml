@@ -4,7 +4,7 @@ deployments:
   tags: []
   description: null
   schedule:
-    cron: 0 0 9 3 *
+    cron: 0 9 3 * *
     timezone: UTC
   flow_name: null
   entrypoint: null
