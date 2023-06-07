@@ -11,7 +11,7 @@ import xgboost as xgb
 from prefect import flow, task
 
 
-@task(retries=3, retry_delay_seconds=2)
+@task(retries=3, retry_delay_seconds=2, name="read data")
 def read_data(filename: str) -> pd.DataFrame:
     """Read data into DataFrame"""
     df = pd.read_parquet(filename)
@@ -32,21 +32,21 @@ def read_data(filename: str) -> pd.DataFrame:
 
 @task
 def add_features(
-    df_train: pd.DataFrame, df_val: pd.DataFrame
-) -> tuple(
+        df_train: pd.DataFrame, df_val: pd.DataFrame
+) -> tuple[
     [
         scipy.sparse._csr.csr_matrix,
         scipy.sparse._csr.csr_matrix,
         np.ndarray,
         np.ndarray,
-        sklearn.feature_extraction.DictVectorizer,
+        DictVectorizer,
     ]
-):
+]:
     """Add features to the model"""
     df_train["PU_DO"] = df_train["PULocationID"] + "_" + df_train["DOLocationID"]
     df_val["PU_DO"] = df_val["PULocationID"] + "_" + df_val["DOLocationID"]
 
-    categorical = ["PU_DO"]  #'PULocationID', 'DOLocationID']
+    categorical = ["PU_DO"]  # 'PULocationID', 'DOLocationID']
     numerical = ["trip_distance"]
 
     dv = DictVectorizer()
@@ -64,11 +64,11 @@ def add_features(
 
 @task(log_prints=True)
 def train_best_model(
-    X_train: scipy.sparse._csr.csr_matrix,
-    X_val: scipy.sparse._csr.csr_matrix,
-    y_train: np.ndarray,
-    y_val: np.ndarray,
-    dv: sklearn.feature_extraction.DictVectorizer,
+        X_train: scipy.sparse._csr.csr_matrix,
+        X_val: scipy.sparse._csr.csr_matrix,
+        y_train: np.ndarray,
+        y_val: np.ndarray,
+        dv: DictVectorizer,
 ) -> None:
     """train a model with best hyperparams and write everything out"""
 
@@ -111,11 +111,10 @@ def train_best_model(
 
 @flow
 def main_flow(
-    train_path: str = "./data/green_tripdata_2021-01.parquet",
-    val_path: str = "./data/green_tripdata_2021-02.parquet",
+        train_path: str = "./data/green_tripdata_2022-01.parquet",
+        val_path: str = "./data/green_tripdata_2022-02.parquet",
 ) -> None:
     """The main training pipeline"""
-
     # MLflow settings
     mlflow.set_tracking_uri("sqlite:///mlflow.db")
     mlflow.set_experiment("nyc-taxi-experiment")
