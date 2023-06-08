@@ -51,7 +51,7 @@ View the results in the UI.
 What’s the final RMSE to five decimal places?
 
 - 6.67433
-- 5.19931
+- 5.19931 <---this
 - 8.89443
 - 9.12250
 
@@ -69,7 +69,7 @@ What’s the RMSE in the artifact to two decimal places ?
 - 9.71
 - 12.02
 - 15.33
-- 5.37
+- 5.37 <---this
 
 
 ## Q5. Emails

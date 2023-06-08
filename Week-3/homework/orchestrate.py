@@ -11,6 +11,7 @@ import xgboost as xgb
 from prefect import flow, task
 from prefect.artifacts import create_markdown_artifact
 from datetime import date
+from prefect_email import EmailServerCredentials, email_send_message
 
 @task(retries=3, retry_delay_seconds=2, name="read data")
 def read_data(filename: str) -> pd.DataFrame:
@@ -70,7 +71,7 @@ def train_best_model(
         y_train: np.ndarray,
         y_val: np.ndarray,
         dv: DictVectorizer,
-) -> None:
+) -> float:
     """train a model with best hyperparams and write everything out"""
 
     with mlflow.start_run():
@@ -124,7 +125,7 @@ def train_best_model(
             key="val-rmse", markdown=markdown__rmse_report
         )
 
-    return None
+    return rmse
 
 
 @flow
@@ -145,7 +146,10 @@ def main_flow(
     X_train, X_val, y_train, y_val, dv = add_features(df_train, df_val)
 
     # Train
-    train_best_model(X_train, X_val, y_train, y_val, dv)
+    rmse = train_best_model(X_train, X_val, y_train, y_val, dv)
+    email_credentials_block = EmailServerCredentials.load("my-gmail-credentials")
+    email_send_message(subject='Result Email', msg=f'{rmse}', email_server_credentials=email_credentials_block,
+                       email_to='tarasenya@gmail.com')
 
 
 if __name__ == "__main__":
