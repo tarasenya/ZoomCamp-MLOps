@@ -134,7 +134,7 @@ def main_flow(
 ) -> None:
     """The main training pipeline"""
     # MLflow settings
-    mlflow.set_tracking_uri("sqlite:///mlflow.db")
+    mlflow.set_tracking_uri("http://127.0.0.1:5000")
     mlflow.set_experiment("nyc-taxi-experiment")
 
     # Load
