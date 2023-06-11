@@ -147,9 +147,9 @@ def main_flow(
 
     # Train
     rmse = train_best_model(X_train, X_val, y_train, y_val, dv)
-    email_credentials_block = EmailServerCredentials.load("my-gmail-credentials")
-    email_send_message(subject='Result Email', msg=f'{rmse}', email_server_credentials=email_credentials_block,
-                       email_to='tarasenya@gmail.com')
+    # email_credentials_block = EmailServerCredentials.load("my-gmail-credentials")
+    # email_send_message(subject='Result Email', msg=f'{rmse}', email_server_credentials=email_credentials_block,
+    #                    email_to='tarasenya@gmail.com')
 
 
 if __name__ == "__main__":

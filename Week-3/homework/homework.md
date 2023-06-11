@@ -108,7 +108,7 @@ Test the notification functionality by running a deployment.
 What is the name of the pre-built prefect-email task function?
 
 - `send_email_message`
-- `email_send_message`
+- `email_send_message` <---this
 - `send_email`
 - `send_message`
 
@@ -120,7 +120,8 @@ The hosted Prefect Cloud lets you avoid running your own Prefect server and
 has automations that allow you to get notifications when certain events occur
 or don’t occur. 
 
-Create a free forever Prefect Cloud account at app.prefect.cloud and connect
+# Create a free forever Prefect Cloud account at app.prefect.cloud and connect
+
 your workspace to it following the steps in the UI when you sign up. 
 
 Set up an Automation from the UI that will send yourself an email when
