@@ -14,7 +14,7 @@ How can you specify a task name?
 > Hint: look in the docs at https://docs.prefect.io or 
 > check out the doc string in a code editor.
 
-- `@task(retries=3, retry_delay_seconds=2, name="Read taxi data")`
+- `@task(retries=3, retry_delay_seconds=2, name="Read taxi data")` __<--- this__
 - `@task(retries=3, retry_delay_seconds=2, task_name="Read taxi data")`
 - `@task(retries=3, retry_delay_seconds=2, task-name="Read taxi data")`
 - `@task(retries=3, retry_delay_seconds=2, task_name_function=lambda x: f"Read taxi data")`
@@ -28,7 +28,7 @@ Using the flow in `orchestrate.py`, create a deployment.
 Schedule your deployment to run on the third day of every month at 9am UTC.
 What’s the cron schedule for that?
 
-- `0 9 3 * *`
+- `0 9 3 * *` __<---this, see deployment.yaml__
 - `0 0 9 3 *`
 - `9 * 3 0 *`
 - `* * 9 3 0`
@@ -51,10 +51,11 @@ View the results in the UI.
 What’s the final RMSE to five decimal places?
 
 - 6.67433
-- 5.19931 <---this
+- 5.19931 __<---this__
 - 8.89443
 - 9.12250
 
+![Automation process](./screenshots/q3-run-february-screenshot.png?raw=true "Title")
 
 ## Q4. RMSE (Markdown Artifact)
 
@@ -69,8 +70,8 @@ What’s the RMSE in the artifact to two decimal places ?
 - 9.71
 - 12.02
 - 15.33
-- 5.37 <---this
-
+- 5.37 __<---this__
+![Automation process](./screenshots/rmse-artifact.png?raw=true "Title")
 
 ## Q5. Emails
 
@@ -108,11 +109,11 @@ Test the notification functionality by running a deployment.
 What is the name of the pre-built prefect-email task function?
 
 - `send_email_message`
-- `email_send_message` <---this
+- `email_send_message` __<---this, see orchestration.py__
 - `send_email`
 - `send_message`
 
-
+![Automation process](./screenshots/sending-email.png?raw=true "Title")
 
 ## Q6. Prefect Cloud
 
@@ -135,9 +136,12 @@ What is the name of the second step in the Automation creation process?
 
 - Details
 - Trigger
-- Actions <-- this
+- Actions __<-- this__
 - The end
 
+![Automation process](./screenshots/automation_1_step.png?raw=true "Title")
+![Automation process](./screenshots/automation_2_step.png?raw=true "Title")
+![Automation process](./screenshots/automation_3_step.png?raw=true "Title")
 
 ## Submit the results
 

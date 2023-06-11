@@ -13,6 +13,7 @@ from prefect.artifacts import create_markdown_artifact
 from datetime import date
 from prefect_email import EmailServerCredentials, email_send_message
 
+
 @task(retries=3, retry_delay_seconds=2, name="read data")
 def read_data(filename: str) -> pd.DataFrame:
     """Read data into DataFrame"""
@@ -147,9 +148,9 @@ def main_flow(
 
     # Train
     rmse = train_best_model(X_train, X_val, y_train, y_val, dv)
-    # email_credentials_block = EmailServerCredentials.load("my-gmail-credentials")
-    # email_send_message(subject='Result Email', msg=f'{rmse}', email_server_credentials=email_credentials_block,
-    #                    email_to='tarasenya@gmail.com')
+    email_credentials_block = EmailServerCredentials.load("my-gmail-credentials")
+    email_send_message(subject='Result Email', msg=f'{rmse}', email_server_credentials=email_credentials_block,
+                       email_to='my_email@gmail.com')
 
 
 if __name__ == "__main__":
