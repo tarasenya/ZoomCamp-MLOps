@@ -76,7 +76,8 @@ def create_df_with_prediction_and_save_to_parquet(path_to_pickle: str, year: int
     print(f'Mean of predictions {numpy.mean(y_pred)}')
     df_result = enrich_with_id(df, 2022, 2, y_pred)
     df_results = df_result[['ride_id', 'predictions']]
-    save_to_parquet(df_results, f'yellow_tripdata_{year:04d}-{month:02d}_with_predictions.parquet')
+    save_to_parquet(df_results, f'yellow_tripdata_{year:04d}-{month:02d}_with_predictions.parquet',
+                    path_to_output_dir='s3://taras-testing-bucket/output')
 
 
 if __name__ == "__main__":

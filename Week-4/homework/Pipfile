@@ -11,9 +11,11 @@ jupyter = "*"
 pandas = "*"
 pyarrow = "*"
 fastparquet = "*"
+boto3 = "*"
+s3fs = "*"
 
 [dev-packages]
 requests = "*"
 
 [requires]
-python_version = "3.10"
+python_version = "3.9"
