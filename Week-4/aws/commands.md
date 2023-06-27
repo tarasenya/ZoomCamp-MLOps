@@ -12,8 +12,8 @@ docker run -it --rm \
     -e PREDICTIONS_STREAM_NAME="ride_predictions" \
     -e TEST_RUN="True" \
     -e AWS_DEFAULT_REGION="us-east-1" \
-    -e AWS_ACCESS_KEY_ID="AKIAU6YSEVNWH74ZG55V" \
-    -e AWS_SECRET_ACCESS_KEY="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" \
+    -e AWS_ACCESS_KEY_ID="" \
+    -e AWS_SECRET_ACCESS_KEY="" \
     -v /home/taras/.aws:/root/.aws \
     stream-model-duration:v1
 
