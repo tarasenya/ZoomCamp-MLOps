@@ -37,7 +37,7 @@ What is the correct way of doing that?
 * `@task(retries_num=2, retry_seconds=5, task_name="calculate metrics")`
 * `@task(retries_num=2, retry_delay_seconds=5, name="calculate metrics")`
 * `@task(retries=2, retry_seconds=5, task_name="calculate metrics")`
-* `@task(retries=2, retry_delay_seconds=5, name="calculate metrics")`
+* `@task(retries=2, retry_delay_seconds=5, name="calculate metrics")` <--this
 
 
 
@@ -49,8 +49,9 @@ What is the maximum value of metric `quantile = 0.5` on th `"fare_amount"` colum
 
 * 10
 * 12.5
-* 14
+* 14 <-- this (13.5 but the closest is 14)
 * 14.8
+![plot](./screenshots/grafana_panels.png)
 
 
 ## Q5. Dashboard
@@ -62,7 +63,7 @@ Where to place a dashboard config file?
 
 * `project_folder` (05-monitoring)
 * `project_folder/config`  (05-monitoring/config)
-* `project_folder/dashboards`  (05-monitoring/dashboards)
+* `project_folder/dashboards`  (05-monitoring/dashboards) <--- this: [see configuration](./dashboards/data_drift.json)
 * `project_folder/data`  (05-monitoring/data)
 
 
