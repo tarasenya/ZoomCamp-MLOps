@@ -10,7 +10,7 @@ Start with `baseline_model_nyc_taxi_data.ipynb`. Download the March 2023 Green T
 
 What is the shape of the downloaded data? How many rows are there?
 
-* 72044
+* 72044 <-- this
 * 78537 
 * 62495
 * 54396
@@ -23,7 +23,7 @@ Let's expand the number of data quality metrics we’d like to monitor! Please a
 Hint: explore evidently metric `ColumnQuantileMetric` (from `evidently.metrics import ColumnQuantileMetric`) 
 
 What metric did you choose?
-
+The following metric has been chosen ColumnDistributionMetric
 
 
 ## Q3. Prefect flow 
