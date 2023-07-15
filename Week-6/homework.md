@@ -134,7 +134,7 @@ aws s3 ls
 
 In both cases we should adjust commands for localstack. Which option do we need to use for such purposes?
 
-- `--endpoint-url`
+- `--endpoint-url` <--- this
 - `--profile`
 - `--region`
 - `--version`
