@@ -228,10 +228,14 @@ df_input.to_parquet(
 
 What's the size of the file?
 
-- 3667
+- 3667 <--- this:
+```bash
+ aws --endpoint-url=http://localhost:4566 s3 ls s3://nyc-duration/in/ --recursive --human-readable --summarize
+```
 - 23667
 - 43667
 - 63667
+![plot](./screenshots/size.png)
 
 Note: it's important to use the code from the snippet for saving
 the file. Otherwise the size may be different depending on the OS,
@@ -260,7 +264,7 @@ verify the result is correct.
 What's the sum of predicted durations for the test dataframe?
 
 - 10.50
-- 31.51
+- 31.51 <-- this
 - 59.28
 - 81.22
 

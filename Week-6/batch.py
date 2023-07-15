@@ -2,6 +2,8 @@
 # coding: utf-8
 import os
 import pickle
+
+import numpy as np
 import pandas as pd
 
 
@@ -17,20 +19,9 @@ def get_output_path(year, month):
     return output_pattern.format(year=year, month=month)
 
 
-def main(year: int, month: int):
-    endpoint_url = os.getenv('S3_ENDPOINT_URL')
-    if endpoint_url:
-        options = {
-            'client_kwargs': {
-                'endpoint_url': endpoint_url
-            },
-            "key": "test",
-            "secret": "test",
-        }
-
+def main(year: int, month: int) -> float:
     input_file = get_input_path(year, month)
     output_file = get_output_path(year, month)
-    # output_file = f'output/yellow_tripdata_{year:04d}-{month:02d}.parquet'
 
     categorical = ['PULocationID', 'DOLocationID']
 
@@ -45,26 +36,39 @@ def main(year: int, month: int):
     y_pred = lr.predict(X_val)
 
     print('predicted mean duration:', y_pred.mean())
-
+    print(f'the sum of predicted durations {np.sum(y_pred)}')
     df_result = pd.DataFrame()
     df_result['ride_id'] = df['ride_id']
     df_result['predicted_duration'] = y_pred
-
-    df_result.to_parquet(output_file, engine='pyarrow', index=False, storage_options=options)
+    save_data(output_file, df_result)
+    return round(np.sum(y_pred), 2)
 
 
 def read_data(filename: str, categorical: list):
-    # endpoint_url = os.getenv('S3_ENDPOINT_URL', None)
-    # if endpoint_url:
-    #     options = {
-    #         'client_kwargs': {
-    #             'endpoint_url': endpoint_url
-    #         }
-    #     }
-    #     df = pd.read_parquet(filename, storage_options=options)
-    # else:
-    df = pd.read_parquet(filename)
+    endpoint_url = os.getenv('S3_ENDPOINT_URL')
+    options = {
+        'client_kwargs': {
+            'endpoint_url': endpoint_url
+        },
+        "key": "test",
+        "secret": "test",
+    }
+    df = pd.read_parquet(filename, storage_options=options)
+
     return prepare_data(df, categorical)
+
+
+def save_data(file_name: str, df: pd.DataFrame) -> None:
+    endpoint_url = os.getenv('S3_ENDPOINT_URL')
+    options = {
+        'client_kwargs': {
+            'endpoint_url': endpoint_url
+        },
+        "key": "test",
+        "secret": "test",
+    }
+    df.to_parquet(file_name, engine='pyarrow', index=False, storage_options=options)
+    return None
 
 
 def prepare_data(df: pd.DataFrame, categorical: list) -> pd.DataFrame:
